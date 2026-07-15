@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Viewport responsivo: obrigatório para PWA mobile-first -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1F4C3A" />
+  <meta name="description" content="Taximota — Conectando pessoas aos serviços locais de Chimoio." />
+
+  <title>Taximota</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Taximota" />
+
+  <link rel="stylesheet" href="/static/css/app.css" />
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Fallback visível se o JS falhar ao carregar (ex: 1ª visita offline) -->
+  <noscript>
+    <p style="text-align:center; padding:24px; font-family:sans-serif;">
+      O Taximota precisa de JavaScript para funcionar. Por favor ative-o no seu navegador.
+    </p>
+  </noscript>
+
+  <script src="/static/js/app.js"></script>
+
+  <script>
+    // Registo do Service Worker — só funciona em HTTPS (ou localhost em dev)
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then((reg) => console.log("Taximota SW registado:", reg.scope))
+          .catch((err) => console.error("Falha ao registar o Service Worker:", err));
+      });
+    }
+  </script>
+</body>
+</html>
