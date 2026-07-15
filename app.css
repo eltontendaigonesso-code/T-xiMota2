@@ -1,0 +1,132 @@
+/* app.css — Base responsiva do Taximota
+   Abordagem mobile-first: estilos base para telas pequenas,
+   com breakpoints progressivos para tablet e desktop. */
+
+:root {
+  --verde-escuro: #1F4C3A;
+  --verde-claro: #2D7A59;
+  --dourado: #E0A336;
+  --branco: #FFFFFF;
+  --cinza: #F0F0F0;
+  --texto-escuro: #1A1A1A;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --font-display: "Poppins", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  color: var(--texto-escuro);
+  background: var(--cinza);
+  /* Evita zoom acidental em inputs no iOS (mínimo 16px) */
+  -webkit-text-size-adjust: 100%;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh; /* respeita barras dinâmicas do navegador mobile */
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: 16px; /* previne zoom automático em iOS ao focar inputs */
+}
+
+/* Áreas de toque acessíveis em qualquer tamanho de tela */
+button, a[role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ---------- Layout mobile (padrão, <640px) ---------- */
+.app-shell {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: var(--branco);
+}
+
+.container {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: env(safe-area-inset-bottom); /* respeita notch/gesture bar */
+}
+
+/* ---------- Tablet (≥640px) ---------- */
+@media (min-width: 640px) {
+  .app-shell {
+    max-width: 600px;
+    border-radius: var(--radius-lg);
+    margin-top: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+/* ---------- Desktop (≥1024px) — ex: Painel Administrativo ---------- */
+@media (min-width: 1024px) {
+  .app-shell {
+    max-width: 480px; /* app do passageiro mantém proporção de telemóvel */
+  }
+
+  .admin-shell {
+    max-width: 100%;
+    display: flex;
+  }
+
+  .admin-sidebar {
+    width: 240px;
+  }
+}
+
+/* ---------- Modo escuro (segue preferência do sistema) ---------- */
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background: #12241C;
+    color: #F0F0F0;
+  }
+}
+
+/* ---------- Alto contraste ---------- */
+@media (prefers-contrast: more) {
+  button, .card {
+    border: 1px solid var(--texto-escuro);
+  }
+}
+
+/* ---------- Redução de movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
